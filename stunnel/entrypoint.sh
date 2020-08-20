@@ -15,6 +15,7 @@ $content
 EOF" > stunnel.conf
     else
         cat > stunnel.conf <<EOF
+foreground = yes
 client = ${PIHIZI_CLIENT:-'yes'}
 cert = /etc/stunnel/stunnel.pem
 setuid = stunnel
@@ -30,6 +31,3 @@ fi
 
 printf "Stunneling: %s --> %s\n" ${PIHIZI_ACCEPT} ${PIHIZI_CONNECT}
 exec /usr/bin/stunnel /etc/stunnel/stunnel.conf
-
-# run forever
-tail -f /dev/null
