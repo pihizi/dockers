@@ -10,4 +10,4 @@ RUN rm -rf /tmp/* /var/cache/apk/*
 
 VOLUME /etc/stunnel
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]

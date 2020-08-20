@@ -30,3 +30,6 @@ fi
 
 printf "Stunneling: %s --> %s\n" ${PIHIZI_ACCEPT} ${PIHIZI_CONNECT}
 exec /usr/bin/stunnel /etc/stunnel/stunnel.conf
+
+# run forever
+tail -f /dev/null
