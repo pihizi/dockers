@@ -28,4 +28,5 @@ EOF
     fi
 fi
 
-exec stunnel "$@"
+printf "Stunneling: %s --> %s\n" ${PIHIZI_ACCEPT} ${PIHIZI_CONNECT}
+exec /usr/bin/stunnel /etc/stunnel/stunnel.conf
