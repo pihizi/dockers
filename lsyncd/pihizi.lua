@@ -17,10 +17,10 @@ settings {
     statusInterval = 10,
 }
 
-sourceLists = require('/etc/lsyncd/conf.d/pihizi-sources')
+sourceLists = require('/etc/lsyncd/pihizi/sources')
 
 for sourceKey,sourceInfo in pairs(sourceLists) do
-	passwordFile = "/etc/lsyncd/conf.d/rsync."..sourceKey..".password"
+	passwordFile = "/etc/lsyncd/pihizi/rsync."..sourceKey..".password"
 	fh = io.open(passwordFile, 'w')
 	fh:write(sourceInfo['password'])
 	fh:close()

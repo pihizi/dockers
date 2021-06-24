@@ -3,8 +3,8 @@ FROM alpine:edge
 RUN apk add --no-cache lsyncd rsync bash
 RUN mkdir -p /var/log/lsyncd/
 ADD pihizi.lua /etc/lsyncd/
-RUN mkdir -p /etc/lsyncd/conf.d/ 
-ADD pihizi-sources.lua /etc/lsyncd/conf.d/
+RUN mkdir -p /etc/lsyncd/pihizi/ 
+ADD sources.lua /etc/lsyncd/pihizi/
 
 RUN mkdir -p /data/
 

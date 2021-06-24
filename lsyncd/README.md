@@ -7,5 +7,5 @@ lsyncd:
   volumes:
   - /etc/localtime:/etc/localtime
   - /data/var/log/lsyncd:/var/log/lsyncd
-  - ./etc/lsyncd/conf.d/pihizi.sources.lua:/etc/lsyncd/conf.d/pihizi.sources.lua
+  - ./etc/lsyncd/pihizi/sources.lua:/etc/lsyncd/pihizi/sources.lua
 ```
