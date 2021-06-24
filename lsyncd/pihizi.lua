@@ -19,7 +19,7 @@ settings {
 
 sourceLists = require('/etc/lsyncd/pihizi/local-to-remote-sources')
 for sourceKey,sourceInfo in pairs(sourceLists) do
-    passwordFile = "/etc/lsyncd/pihizi/rsync."..sourceKey..".password"
+    passwordFile = "/etc/lsyncd/pihizi/rsync.l2r."..sourceKey..".password"
     fh = io.open(passwordFile, 'w')
     fh:write(sourceInfo['password'])
     fh:close()
@@ -55,5 +55,29 @@ for sourceKey,sourceInfo in pairs(sourceLists) do
             verbose = true,
             -- _extra = {"--remove-source-files"},
         }
+    }
+end
+
+sourceLists = require('/etc/lsyncd/pihizi/remote-to-local-sources')
+remotevars = {}
+for sourceKey,sourceInfo in pairs(sourceLists) do
+    passwordFile = "/etc/lsyncd/pihizi/rsync.r2l."..sourceKey..".password"
+    fh = io.open(passwordFile, 'w')
+    fh:write(sourceInfo['password'])
+    fh:close()
+    os.execute('chmod 600 '..passwordFile);
+    lockedFile = sourceInfo['target'].."/pihizi.rsync.locked"
+    filePattern = '*'
+    if (type(sourceInfo['file_pattern'])~='nil') then
+        filePattern = sourceInfo['file_pattern']
+    end
+    remotevars[sourceKey] = {
+        maxProcesses = 1,
+        delay = 10,
+        onModify = 'if [ "--^pathname--" == "--pihizi.heartbeat--" ] && [ ! -f "'..lockedFile..'" ]; then date > '..lockedFile..'; rsync -rzP --ignore-missing-args --ignore-existing --remove-source-files --password-file='..passwordFile..' '..sourceInfo['source']..'/'..filePattern..' '..sourceInfo['target']..'; rm '..lockedFile..'; fi',
+    }
+    sync {
+        remotevars[sourceKey],
+        source = sourceInfo['target'],
     }
 end
