@@ -4,7 +4,7 @@ RUN apk add --no-cache lsyncd rsync bash
 RUN mkdir -p /var/log/lsyncd/
 ADD pihizi.lua /etc/lsyncd/
 RUN mkdir -p /etc/lsyncd/pihizi/ 
-ADD sources.lua /etc/lsyncd/pihizi/
+ADD local-to-remote-sources.lua /etc/lsyncd/pihizi/
 
 RUN mkdir -p /data/
 
