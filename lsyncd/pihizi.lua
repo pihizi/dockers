@@ -17,7 +17,7 @@ settings {
     statusInterval = 10,
 }
 
-sourceLists = require('/etc/lsyncd/conf.d/pihizi.sources')
+sourceLists = require('/etc/lsyncd/conf.d/pihizi-sources')
 
 for sourceKey,sourceInfo in pairs(sourceLists) do
 	passwordFile = "/etc/lsyncd/conf.d/rsync."..sourceKey..".password"
