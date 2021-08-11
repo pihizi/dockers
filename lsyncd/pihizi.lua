@@ -71,10 +71,14 @@ for sourceKey,sourceInfo in pairs(sourceLists) do
     if (type(sourceInfo['file_pattern'])~='nil') then
         filePattern = sourceInfo['file_pattern']
     end
+    removeReoteFiles = ''
+    if (type(sourceInfo['remove_source_files'])~='nil' and sourceInfo['remove_source_files']=='remove') then
+        removeReoteFiles = '--remove-source-files'
+    end
     remotevars[sourceKey] = {
         maxProcesses = 1,
         delay = 10,
-        onModify = 'if [ "--^pathname--" == "--pihizi.heartbeat--" ] && [ ! -f "'..lockedFile..'" ]; then date > '..lockedFile..'; rsync -rzP --ignore-missing-args --ignore-existing --remove-source-files --password-file='..passwordFile..' '..sourceInfo['source']..'/'..filePattern..' '..sourceInfo['target']..'; rm '..lockedFile..'; fi',
+        onModify = 'if [ "--^pathname--" == "--pihizi.heartbeat--" ] && [ ! -f "'..lockedFile..'" ]; then date > '..lockedFile..'; rsync -rzP --ignore-missing-args --ignore-existing '..removeReoteFiles..' --password-file='..passwordFile..' '..sourceInfo['source']..'/'..filePattern..' '..sourceInfo['target']..'; rm '..lockedFile..'; fi',
     }
     sync {
         remotevars[sourceKey],
