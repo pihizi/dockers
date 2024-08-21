@@ -1,6 +1,7 @@
-FROM alpine:edge
+FROM --platform=linux/arm64/v8,linux/amd64 alpine:3.12
 
-RUN apk add --no-cache lsyncd rsync bash
+RUN apk update
+RUN apk add --no-cache rsync=3.1.3-r3 lsyncd bash
 RUN mkdir -p /var/log/lsyncd/
 ADD pihizi.lua /etc/lsyncd/
 RUN mkdir -p /etc/lsyncd/pihizi/ 
